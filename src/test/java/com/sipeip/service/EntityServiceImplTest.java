@@ -16,7 +16,7 @@ import java.util.List;
 class EntityServiceImplTest {
 
     @Test
-    void createEntitySuccessfully() {
+    void givenValidRequestWhenCreateEntityThenReturnsSuccess() {
         EntityRequest request = new EntityRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "ACTIVO");
         Entity savedEntity = Entity.builder()
                 .id(1)
@@ -42,7 +42,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void createEntityFailsWhenIdIsNull() {
+    void givenNullIdWhenCreateEntityThenThrowsException() {
         EntityRequest request = new EntityRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "INACTIVO");
         Entity savedEntity = Entity.builder()
                 .name(request.getName())
@@ -64,7 +64,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void getEntitiesReturnsEmptyListWhenNoEntitiesExist() {
+    void givenNoEntitiesWhenGetEntitiesThenReturnsEmptyList() {
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
         Mockito.when(mockRepository.findAll()).thenReturn(Collections.emptyList());
 
@@ -79,7 +79,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void getEntitiesReturnsMappedEntities() {
+    void givenEntitiesExistWhenGetEntitiesThenReturnsMappedEntities() {
         Entity entity = Entity.builder()
                 .id(1)
                 .name("Test Name")
@@ -92,7 +92,6 @@ class EntityServiceImplTest {
                 .build();
 
         EntityResponse mappedResponse = getEntityResponse(entity);
-
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
         Mockito.when(mockRepository.findAll()).thenReturn(List.of(entity));
@@ -122,7 +121,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void updateEntitySuccessfully() {
+    void givenValidIdAndRequestWhenUpdateEntityThenReturnsSuccess() {
         Integer id = 1;
         EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
         Entity updatedEntity = Entity.builder()
@@ -147,7 +146,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void updateEntityFailsWhenIdIsNull() {
+    void givenNullIdWhenUpdateEntityThenThrowsException() {
         Integer id = null;
         EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
 
@@ -160,7 +159,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void searchEntitiesByNameReturnsMappedEntities() {
+    void givenNameWhenSearchEntitiesByNameThenReturnsMappedEntities() {
         String name = "Test Name";
         String type = "0";
         Entity entity = Entity.builder()
@@ -191,7 +190,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void searchEntitiesByCodeReturnsMappedEntities() {
+    void givenCodeWhenSearchEntitiesByCodeThenReturnsMappedEntities() {
         String code = "Test Code";
         String type = "1";
         Entity entity = Entity.builder()
@@ -222,7 +221,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void searchEntitiesReturnsEmptyListWhenNoEntitiesFound() {
+    void givenNoEntitiesFoundWhenSearchEntitiesThenReturnsEmptyList() {
         String name = "Nonexistent Name";
         String type = "0";
 
@@ -240,7 +239,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void deleteEntityByIdSuccessfully() {
+    void givenValidIdWhenDeleteEntityByIdThenSucceeds() {
         Integer id = 1;
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
@@ -254,7 +253,7 @@ class EntityServiceImplTest {
     }
 
     @Test
-    void deleteEntityByIdFailsWhenEntityStillExists() {
+    void givenEntityStillExistsWhenDeleteEntityByIdThenThrowsException() {
         Integer id = 1;
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);

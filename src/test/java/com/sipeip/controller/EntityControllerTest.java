@@ -16,7 +16,7 @@ import java.util.Collections;
 class EntityControllerTest {
 
     @Test
-    void deleteEntityReturnsNoContent() {
+    void givenValidIdWhenDeleteEntityThenReturnsNoContent() {
         EntityService mockService = Mockito.mock(EntityService.class);
         EntityController controller = new EntityController(mockService);
 
@@ -27,7 +27,7 @@ class EntityControllerTest {
     }
 
     @Test
-    void updateEntityReturnsCreatedStatus() {
+    void givenValidUpdateRequestWhenUpdateEntityThenReturnsCreatedStatus() {
         EntityService mockService = Mockito.mock(EntityService.class);
         EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
         EntityResultResponse mockResponse = new EntityResultResponse();
@@ -44,7 +44,7 @@ class EntityControllerTest {
     }
 
     @Test
-    void getEntitiesReturnsPagedResponse() {
+    void givenPageRequestWhenGetEntitiesThenReturnsPagedResponse() {
         EntityService mockService = Mockito.mock(EntityService.class);
         EntityPagedResponse mockResponse = new EntityPagedResponse();
         mockResponse.setContent(Collections.emptyList());
@@ -58,7 +58,7 @@ class EntityControllerTest {
     }
 
     @Test
-    void createEntityReturnsCreatedStatus() {
+    void givenValidCreateRequestWhenCreateEntityThenReturnsCreatedStatus() {
         EntityService mockService = Mockito.mock(EntityService.class);
         EntityRequest request = new EntityRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "Active");
         EntityResultResponse mockResponse = new EntityResultResponse();
@@ -74,7 +74,7 @@ class EntityControllerTest {
     }
 
     @Test
-    void searchEntitiesReturnsWhenReturnOk() {
+    void givenSearchCriteriaWhenSearchEntitiesThenReturnsOk() {
         EntityService mockService = Mockito.mock(EntityService.class);
         EntityController controller = new EntityController(mockService);
 
