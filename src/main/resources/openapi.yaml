@@ -1,0 +1,187 @@
+openapi: 3.0.3
+info:
+  title: Entity Management API
+  version: '1.0.0'
+  description: API for managing institutional entities.
+
+servers:
+  - url: http://localhost:8080/api
+
+tags:
+  - name: entities
+    description: Endpoints for entity management
+
+paths:
+  /entities:
+    post:
+      tags:
+        - entities
+      summary: Register a new entity
+      operationId: createEntity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityCreateRequest'
+      responses:
+        '201':
+          description: Entity successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityResultResponse'
+        '400':
+          description: Invalid data
+        '409':
+          description: Duplicate entity
+
+  /entities/paged:
+    get:
+      tags:
+        - entities
+      summary: Get paged entities (no filters)
+      operationId: getPagedEntities
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Paged entity list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPagedResponse'
+
+  /entities/search:
+    get:
+      tags:
+        - entities
+      summary: Search entities with filters
+      operationId: searchEntities
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - name: name
+          in: query
+          schema: { type: string }
+        - name: code
+          in: query
+          schema: { type: string }
+        - name: type
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Entities found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPagedResponse'
+
+  /entities/{id}:
+    put:
+      tags:
+        - entities
+      summary: Update an existing entity
+      operationId: updateEntity
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityUpdateRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityResultResponse'
+        '400':
+          description: Invalid data
+        '404':
+          description: Entity not found
+        '409':
+          description: Duplicate entity
+
+  /entities/{id}/delete:
+    delete:
+      tags:
+        - entities
+      summary: Delete entity
+      operationId: deleteEntity
+      parameters:
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Entity successfully deactivated
+        '404':
+          description: Entity not found
+
+components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      description: Page number (starts at 0)
+      schema: { type: integer, default: 0 }
+    Size:
+      name: size
+      in: query
+      description: Number of elements per page
+      schema: { type: integer, default: 20 }
+    EntityId:
+      name: id
+      in: path
+      required: true
+      schema: { type: integer }
+      description: Entity ID
+
+  schemas:
+    EntityCreateRequest:
+      type: object
+      required: [ name, code, subSector, level,status ]
+      properties:
+        name: { type: string, minLength: 3, maxLength: 100 }
+        code: { type: string, minLength: 3, maxLength: 100 }
+        subSector: { type: string, minLength: 3, maxLength: 100 }
+        level: { type: string, minLength: 3, maxLength: 100 }
+        status: { type: string , minLength: 3, maxLength: 100 }
+    EntityUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/EntityCreateRequest'
+    EntityResultResponse:
+      title: EntityResultResponse
+      type: object
+      properties:
+        code:
+          type: string
+          description: code the result when the entity is created or updated
+        result:
+          type: string
+          description: result when the entity is created or updated
+    EntityResponse:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: string }
+        subSector: { type: string }
+        level: { type: string }
+        status: { type: string }
+        createdAt: { type: string }
+        updatedAt: { type: string }
+    EntityPagedResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityResponse'
+        totalElements: { type: integer }
+        totalPages: { type: integer }
+        page: { type: integer }
+        size: { type: integer }
