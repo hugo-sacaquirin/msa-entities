@@ -2,8 +2,8 @@ package com.sipeip.controller;
 
 
 import com.sipeip.infrastructure.input.adapter.rest.EntitiesApi;
-import com.sipeip.infrastructure.input.adapter.rest.models.EntityCreateRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 import com.sipeip.service.EntityService;
@@ -35,7 +35,7 @@ public class EntityController implements EntitiesApi {
     }
 
     @Override
-    public ResponseEntity<EntityResultResponse> createEntity(EntityCreateRequest entityCreateRequest) {
+    public ResponseEntity<EntityResultResponse> createEntity(EntityRequest entityCreateRequest) {
         return new ResponseEntity<>(entityService.createEntity(entityCreateRequest), HttpStatus.CREATED);
     }
 

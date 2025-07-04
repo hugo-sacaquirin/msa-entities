@@ -1,9 +1,12 @@
 package com.sipeip.service;
 
-import com.sipeip.infrastructure.input.adapter.rest.models.*;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 
 public interface EntityService {
-    EntityResultResponse createEntity(EntityCreateRequest request);
+    EntityResultResponse createEntity(EntityRequest request);
 
     EntityResultResponse updateEntity(Integer id, EntityUpdateRequest request);
 

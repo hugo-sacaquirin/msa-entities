@@ -1,7 +1,7 @@
 package com.sipeip.controller;
 
-import com.sipeip.infrastructure.input.adapter.rest.models.EntityCreateRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 import com.sipeip.service.EntityService;
@@ -60,7 +60,7 @@ class EntityControllerTest {
     @Test
     void createEntityReturnsCreatedStatus() {
         EntityService mockService = Mockito.mock(EntityService.class);
-        EntityCreateRequest request = new EntityCreateRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "Active");
+        EntityRequest request = new EntityRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "Active");
         EntityResultResponse mockResponse = new EntityResultResponse();
         mockResponse.setResult("Entity created successfully");
         mockResponse.setCode("204");

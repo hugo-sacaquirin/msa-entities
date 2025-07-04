@@ -1,6 +1,6 @@
 package com.sipeip.service;
 
-import com.sipeip.domain.entity.Entities;
+import com.sipeip.domain.entity.Entity;
 import com.sipeip.infrastructure.input.adapter.rest.models.*;
 import com.sipeip.repository.EntityRepository;
 import com.sipeip.service.impl.EntityServiceImpl;
@@ -17,8 +17,8 @@ class EntityServiceImplTest {
 
     @Test
     void createEntitySuccessfully() {
-        EntityCreateRequest request = new EntityCreateRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "Active");
-        Entities savedEntity = Entities.builder()
+        EntityRequest request = new EntityRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "ACTIVO");
+        Entity savedEntity = Entity.builder()
                 .id(1)
                 .name(request.getName())
                 .code(request.getCode())
@@ -30,7 +30,7 @@ class EntityServiceImplTest {
                 .build();
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
-        Mockito.when(mockRepository.save(Mockito.any(Entities.class))).thenReturn(savedEntity);
+        Mockito.when(mockRepository.save(Mockito.any(Entity.class))).thenReturn(savedEntity);
 
         EntitiesMapper mockMapper = Mockito.mock(EntitiesMapper.class);
         EntityServiceImpl service = new EntityServiceImpl(mockRepository, mockMapper);
@@ -43,8 +43,8 @@ class EntityServiceImplTest {
 
     @Test
     void createEntityFailsWhenIdIsNull() {
-        EntityCreateRequest request = new EntityCreateRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "Active");
-        Entities savedEntity = Entities.builder()
+        EntityRequest request = new EntityRequest("Test Name", "Test Code", "Test SubSector", "Test Level", "INACTIVO");
+        Entity savedEntity = Entity.builder()
                 .name(request.getName())
                 .code(request.getCode())
                 .subSector(request.getSubSector())
@@ -55,7 +55,7 @@ class EntityServiceImplTest {
                 .build();
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
-        Mockito.when(mockRepository.save(Mockito.any(Entities.class))).thenReturn(savedEntity);
+        Mockito.when(mockRepository.save(Mockito.any(Entity.class))).thenReturn(savedEntity);
 
         EntitiesMapper mockMapper = Mockito.mock(EntitiesMapper.class);
         EntityServiceImpl service = new EntityServiceImpl(mockRepository, mockMapper);
@@ -80,7 +80,7 @@ class EntityServiceImplTest {
 
     @Test
     void getEntitiesReturnsMappedEntities() {
-        Entities entity = Entities.builder()
+        Entity entity = Entity.builder()
                 .id(1)
                 .name("Test Name")
                 .code("Test Code")
@@ -108,7 +108,7 @@ class EntityServiceImplTest {
         Assertions.assertEquals(mappedResponse, response.getContent().get(0));
     }
 
-    private static EntityResponse getEntityResponse(Entities entity) {
+    private static EntityResponse getEntityResponse(Entity entity) {
         EntityResponse mappedResponse = new EntityResponse();
         mappedResponse.setId(entity.getId());
         mappedResponse.setName(entity.getName());
@@ -125,7 +125,7 @@ class EntityServiceImplTest {
     void updateEntitySuccessfully() {
         Integer id = 1;
         EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
-        Entities updatedEntity = Entities.builder()
+        Entity updatedEntity = Entity.builder()
                 .id(id)
                 .name(request.getName())
                 .code(request.getCode())
@@ -136,7 +136,7 @@ class EntityServiceImplTest {
                 .build();
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
-        Mockito.when(mockRepository.save(Mockito.any(Entities.class))).thenReturn(updatedEntity);
+        Mockito.when(mockRepository.save(Mockito.any(Entity.class))).thenReturn(updatedEntity);
 
         EntityServiceImpl service = new EntityServiceImpl(mockRepository, Mockito.mock(EntitiesMapper.class));
 
@@ -152,7 +152,7 @@ class EntityServiceImplTest {
         EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
-        Mockito.when(mockRepository.save(Mockito.any(Entities.class))).thenReturn(Entities.builder().id(null).build());
+        Mockito.when(mockRepository.save(Mockito.any(Entity.class))).thenReturn(Entity.builder().id(null).build());
 
         EntityServiceImpl service = new EntityServiceImpl(mockRepository, Mockito.mock(EntitiesMapper.class));
 
@@ -163,7 +163,7 @@ class EntityServiceImplTest {
     void searchEntitiesByNameReturnsMappedEntities() {
         String name = "Test Name";
         String type = "0";
-        Entities entity = Entities.builder()
+        Entity entity = Entity.builder()
                 .id(1)
                 .name(name)
                 .code("Test Code")
@@ -194,7 +194,7 @@ class EntityServiceImplTest {
     void searchEntitiesByCodeReturnsMappedEntities() {
         String code = "Test Code";
         String type = "1";
-        Entities entity = Entities.builder()
+        Entity entity = Entity.builder()
                 .id(1)
                 .name("Test Name")
                 .code(code)

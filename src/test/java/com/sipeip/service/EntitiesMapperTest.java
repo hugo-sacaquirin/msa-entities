@@ -1,6 +1,6 @@
 package com.sipeip.service;
 
-import com.sipeip.domain.entity.Entities;
+import com.sipeip.domain.entity.Entity;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResponse;
 import com.sipeip.service.mapper.EntitiesMapper;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ class EntitiesMapperTest {
 
     @Test
     void mapEntityToEntityResponseSuccessfully() {
-        Entities entity = Entities.builder()
+        Entity entity = Entity.builder()
                 .id(1)
                 .name("Test Name")
                 .code("Test Code")
@@ -58,7 +58,7 @@ class EntitiesMapperTest {
 
     @Test
     void mapEntityListToEntityResponseListSuccessfully() {
-        Entities entity = Entities.builder()
+        Entity entity = Entity.builder()
                 .id(1)
                 .name("Test Name")
                 .code("Test Code")

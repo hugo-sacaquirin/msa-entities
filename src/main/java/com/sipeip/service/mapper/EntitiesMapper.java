@@ -1,7 +1,7 @@
 package com.sipeip.service.mapper;
 
 
-import com.sipeip.domain.entity.Entities;
+import com.sipeip.domain.entity.Entity;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResponse;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class EntitiesMapper {
 
-    public EntityResponse toEntityResponse(Entities entities) {
+    public EntityResponse toEntityResponse(Entity entities) {
         if (entities == null) {
             return null;
         }
@@ -26,7 +26,7 @@ public class EntitiesMapper {
         return entityResponse;
     }
 
-    public List<EntityResponse> toEntityResponseFromEntities(List<Entities> entitiesList) {
+    public List<EntityResponse> toEntityResponseFromEntities(List<Entity> entitiesList) {
         return entitiesList.stream()
                 .map(this::toEntityResponse)
                 .toList();

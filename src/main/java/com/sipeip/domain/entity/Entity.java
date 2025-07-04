@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "entidades")
 @Builder // Lombok annotation to generate a builder for the class
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Entities {
+public class Entity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

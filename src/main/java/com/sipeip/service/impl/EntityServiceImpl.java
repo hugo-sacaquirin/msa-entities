@@ -1,8 +1,9 @@
 package com.sipeip.service.impl;
 
-import com.sipeip.domain.entity.Entities;
-import com.sipeip.infrastructure.input.adapter.rest.models.EntityCreateRequest;
+import com.sipeip.domain.State;
+import com.sipeip.domain.entity.Entity;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 import com.sipeip.repository.EntityRepository;
@@ -22,12 +23,12 @@ public class EntityServiceImpl implements EntityService {
     private final EntitiesMapper entitiesMapper;
 
     @Override
-    public EntityResultResponse createEntity(EntityCreateRequest request) {
-        Entities entities = entityRepository.save(Entities.builder()
+    public EntityResultResponse createEntity(EntityRequest request) {
+        Entity entities = entityRepository.save(Entity.builder()
                 .name(request.getName())
                 .code(request.getCode())
                 .subSector(request.getSubSector())
-                .status(request.getStatus())
+                .status(State.ACTIVE.getValue())
                 .createdAt(java.time.LocalDateTime.now())
                 .updatedAt(java.time.LocalDateTime.now())
                 .level(request.getLevel())
@@ -40,7 +41,7 @@ public class EntityServiceImpl implements EntityService {
 
     @Override
     public EntityResultResponse updateEntity(Integer id, EntityUpdateRequest request) {
-        Entities entities = entityRepository.save(Entities.builder()
+        Entity entities = entityRepository.save(Entity.builder()
                 .id(id)
                 .name(request.getName())
                 .code(request.getCode())
