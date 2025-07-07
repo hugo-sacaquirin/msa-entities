@@ -92,7 +92,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EntityUpdateRequest'
+              $ref: '#/components/schemas/EntityRequest'
       responses:
         '200':
           description: Entity updated
@@ -151,9 +151,6 @@ components:
         subSector: { type: string, minLength: 3, maxLength: 100 }
         level: { type: string, minLength: 3, maxLength: 100 }
         status: { type: string , minLength: 3, maxLength: 100 }
-    EntityUpdateRequest:
-      allOf:
-        - $ref: '#/components/schemas/EntityRequest'
     EntityResultResponse:
       title: EntityResultResponse
       type: object
@@ -182,7 +179,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EntityResponse'
-        totalElements: { type: integer }
-        totalPages: { type: integer }
-        page: { type: integer }
-        size: { type: integer }

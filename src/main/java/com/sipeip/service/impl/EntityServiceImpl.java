@@ -5,7 +5,6 @@ import com.sipeip.domain.entity.Entity;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
-import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 import com.sipeip.repository.EntityRepository;
 import com.sipeip.service.EntityService;
 import com.sipeip.service.mapper.EntitiesMapper;
@@ -40,7 +39,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     @Override
-    public EntityResultResponse updateEntity(Integer id, EntityUpdateRequest request) {
+    public EntityResultResponse updateEntity(Integer id, EntityRequest request) {
         Entity entities = entityRepository.save(Entity.builder()
                 .id(id)
                 .name(request.getName())

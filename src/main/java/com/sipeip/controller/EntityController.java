@@ -5,15 +5,16 @@ import com.sipeip.infrastructure.input.adapter.rest.EntitiesApi;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
-import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 import com.sipeip.service.EntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class EntityController implements EntitiesApi {
     private final EntityService entityService;
 
@@ -25,7 +26,7 @@ public class EntityController implements EntitiesApi {
     }
 
     @Override
-    public ResponseEntity<EntityResultResponse> updateEntity(Integer id, EntityUpdateRequest entityUpdateRequest) {
+    public ResponseEntity<EntityResultResponse> updateEntity(Integer id, EntityRequest entityUpdateRequest) {
         return new ResponseEntity<>(entityService.updateEntity(id, entityUpdateRequest), HttpStatus.CREATED);
     }
 

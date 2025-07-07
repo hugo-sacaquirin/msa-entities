@@ -1,7 +1,10 @@
 package com.sipeip.service;
 
 import com.sipeip.domain.entity.Entity;
-import com.sipeip.infrastructure.input.adapter.rest.models.*;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityResponse;
+import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
 import com.sipeip.repository.EntityRepository;
 import com.sipeip.service.impl.EntityServiceImpl;
 import com.sipeip.service.mapper.EntitiesMapper;
@@ -123,7 +126,7 @@ class EntityServiceImplTest {
     @Test
     void givenValidIdAndRequestWhenUpdateEntityThenReturnsSuccess() {
         Integer id = 1;
-        EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
+        EntityRequest request = new EntityRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
         Entity updatedEntity = Entity.builder()
                 .id(id)
                 .name(request.getName())
@@ -148,7 +151,7 @@ class EntityServiceImplTest {
     @Test
     void givenNullIdWhenUpdateEntityThenThrowsException() {
         Integer id = null;
-        EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
+        EntityRequest request = new EntityRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
 
         EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
         Mockito.when(mockRepository.save(Mockito.any(Entity.class))).thenReturn(Entity.builder().id(null).build());

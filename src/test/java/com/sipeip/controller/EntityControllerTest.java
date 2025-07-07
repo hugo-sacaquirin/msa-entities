@@ -3,7 +3,6 @@ package com.sipeip.controller;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityPagedResponse;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityRequest;
 import com.sipeip.infrastructure.input.adapter.rest.models.EntityResultResponse;
-import com.sipeip.infrastructure.input.adapter.rest.models.EntityUpdateRequest;
 import com.sipeip.service.EntityService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ class EntityControllerTest {
     @Test
     void givenValidUpdateRequestWhenUpdateEntityThenReturnsCreatedStatus() {
         EntityService mockService = Mockito.mock(EntityService.class);
-        EntityUpdateRequest request = new EntityUpdateRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
+        EntityRequest request = new EntityRequest("Updated Name", "Updated Code", "Updated SubSector", "Updated Level", "Active");
         EntityResultResponse mockResponse = new EntityResultResponse();
         mockResponse.setResult("Entity updated successfully");
         mockResponse.setCode("204");
